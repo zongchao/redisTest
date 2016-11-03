@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    <!--注解说明 -->
+    <context:annotation-config />
+    <!-- 自动扫描controller包下的所有类，使其认为spring mvc的控制器 -->
+    <context:component-scan base-package="com.neko.controller.*" />
+    <!-- 启用@AspectJ支持,从而可以实现通过注解方式将通知编织到非公共方法中 -->
+    <aop:aspectj-autoproxy />
+    <!--<mvc:annotation-driven>-->
+    <!--<mvc:message-converters register-defaults="true">-->
+    <!--<bean class="org.springframework.http.converter.StringHttpMessageConverter">-->
+    <!--<property name="supportedMediaTypes" value="text/plain;charset=UTF-8"/>-->
+    <!--</bean>-->
+    <!--</mvc:message-converters>-->
+    <!--</mvc:annotation-driven>-->
+    <!-- 对象json互转注解  -->
+    <!--<mvc:annotation-driven />-->
+
+    <!--<mvc:resources mapping="*.html" location="/WEB-INF/swagger"/>-->
+    <!--<mvc:resources mapping="/**" location="/WEB-INF/swagger"/>-->
+    <mvc:resources mapping="/**" location="/WEB-INF"/>
+    <mvc:default-servlet-handler />
+
+    <!-- 注册 ApplicationSwaggerConfig 的bean -->
+    <!--<bean name="applicationSwaggerConfig" class="com.ssjk.website.util.ApplicationSwaggerConfig"/>-->
+    <!-- 跨域 -->
+    <!--<mvc:cors>-->
+        <!--<mvc:mapping path="/**" allowed-origins="*" allow-credentials="true" max-age="1800" allowed-methods="GET,POST,OPTIONS"/>-->
+    <!--</mvc:cors>-->
+
+    <!--<mvc:annotation-driven>-->
+        <!--<mvc:message-converters register-defaults="true">-->
+            <!--<bean class="com.ssjk.website.util.MappingJacksonHttpMessageConverterAes">-->
+                <!--<property name="supportedMediaTypes" value="text/plain;charset=UTF-8"/>-->
+            <!--</bean>-->
+            <!--&lt;!&ndash;<bean class="org.springframework.http.converter.StringHttpMessageConverter">&ndash;&gt;-->
+                <!--&lt;!&ndash;<property name="supportedMediaTypes" value="text/plain;charset=UTF-8"/>&ndash;&gt;-->
+            <!--&lt;!&ndash;</bean>&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash; 处理responseBody 里面日期类型 &ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">&ndash;&gt;-->
+                <!--&lt;!&ndash;<property name="objectMapper">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<bean class="com.fasterxml.jackson.databind.ObjectMapper">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<property name="dateFormat">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<bean class="java.text.SimpleDateFormat">&ndash;&gt;-->
+                                <!--&lt;!&ndash;<constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss"/>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</bean>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</property>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</bean>&ndash;&gt;-->
+                <!--&lt;!&ndash;</property>&ndash;&gt;-->
+            <!--&lt;!&ndash;</bean>&ndash;&gt;-->
+        <!--</mvc:message-converters>-->
+    <!--</mvc:annotation-driven>-->
+</beans>

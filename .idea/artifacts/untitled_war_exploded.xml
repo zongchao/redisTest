@@ -1,0 +1,16 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="untitled:war exploded">
+    <output-path>$PROJECT_DIR$/untitled/target/redisTest</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="redisTest" />
+        </element>
+      </element>
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/redisTest/target/redisTest/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="javaee-facet-resources" facet="redisTest/web/Web" />
+    </root>
+  </artifact>
+</component>
