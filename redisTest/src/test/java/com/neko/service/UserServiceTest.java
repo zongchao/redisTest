@@ -20,8 +20,13 @@ public class UserServiceTest {
 
     @Test
     public void test(){
-        User user = userService.findUserById(1);
-        System.out.println(user.getUsername());
+//        User user = new User();
+//        user.setUsername("test2");
+//        user.setPassword("1111");
+//        userService.insertUser(user);
+        User user = userService.findUserById(2);
+//        System.out.println(user.getUsername());
     }
+
 
 }

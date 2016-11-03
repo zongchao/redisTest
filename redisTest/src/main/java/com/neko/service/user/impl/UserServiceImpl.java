@@ -6,6 +6,8 @@ import com.neko.dao.po.Invest;
 import com.neko.dao.po.User;
 import com.neko.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -21,8 +23,16 @@ public class UserServiceImpl implements UserService {
     InvestMapper investMapper;
 
     @Override
+    @Cacheable(key = "#id", value = "userCache")
     public User findUserById(int id) {
+        System.out.println(123);
         return userMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    @CachePut("#user.getName()")
+    public void insertUser(User user) {
+        userMapper.insert(user);
     }
 
     @Override

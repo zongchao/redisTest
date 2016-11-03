@@ -10,5 +10,7 @@ public interface UserService {
 
     User findUserById(int id);
 
+    void insertUser(User user);
+
     void invest(Invest invest);
 }
