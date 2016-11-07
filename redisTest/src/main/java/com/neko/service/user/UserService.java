@@ -8,7 +8,7 @@ import com.neko.dao.po.User;
  */
 public interface UserService {
 
-    User findUserById(int id);
+    User findUserById(Integer id);
 
     void insertUser(User user);
 
