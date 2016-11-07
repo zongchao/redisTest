@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
     InvestMapper investMapper;
 
     @Override
-    @Cacheable(key = "#id.toString()", value = "userCache")
+    @Cacheable(key = "'userid:'.concat(#id.toString())", value = "userCache")
     public User findUserById(Integer id) {
         System.out.println(123);
         return userMapper.selectByPrimaryKey(id);
