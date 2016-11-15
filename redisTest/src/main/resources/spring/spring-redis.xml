@@ -48,15 +48,20 @@
           c:template-ref='redisTemplate'/>
     <!-- redis -->
 
+
+    <!-- 发布订阅消息 -->
+    <!-- 定义一个消息发布者，直接使用redisTemplate也可以-->
     <bean id="messageQueueSender" class="com.neko.queue.MessageQueueSender">
         <property name="redisTemplate" ref="redisTemplate"/>
     </bean>
-
+    <!-- 定义消息序列化形式 -->
     <bean id="jdkSerializer" class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/>
+    <!-- 定义一个监听器也就是订阅者-->
     <bean id="messageQueueListener" class="com.neko.queue.MessageQueueListener"/>
+    <!-- redis:listener 其中ref是订阅者使用的类，serializer序列化形式，method订阅到执行的方法，topic订阅的频道 -->
     <redis:listener-container>
         <redis:listener ref="messageQueueListener" serializer="jdkSerializer" method="onMessage" topic="java"/>
     </redis:listener-container>
-
+    <!-- 发布订阅消息 -->
 
 </beans>
