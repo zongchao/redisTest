@@ -26,15 +26,18 @@
     <!-- redisTemplate配置，redisTemplate是对Jedis的对redis操作的扩展，有更多的操作，封装使操作更便捷 -->
     <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
         <property name="connectionFactory" ref="redisConnectionFactory"/>
+        <!-- redis中key的序列化形式，目前使用string（字符串）型作为key的序列化形式-->
         <property name="keySerializer">
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+        </property>
+
+        <!-- redis中value的序列化形式，目前使用jdk型作为value的序列化形式，使用jdk序列化形式内容会以对象的形式存在-->
+        <property name="valueSerializer">
             <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
         </property>
         <!--<property name="hashKeySerializer">-->
         <!--<bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/>-->
         <!--</property>-->
-        <property name="valueSerializer">
-            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
-        </property>
         <!--<property name="hashValueSerializer">-->
         <!--<bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/>-->
         <!--</property>-->
