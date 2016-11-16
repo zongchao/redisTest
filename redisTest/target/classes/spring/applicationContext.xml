@@ -2,154 +2,152 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
-       xmlns:cache="http://www.springframework.org/schema/cache"
-       xmlns:c="http://www.springframework.org/schema/c"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <context:annotation-config/>
-    <!--启用aop代理-->
-    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    <!--<context:annotation-config/>-->
+    <!--&lt;!&ndash;启用aop代理&ndash;&gt;-->
+    <!--<aop:aspectj-autoproxy proxy-target-class="true"/>-->
 
-    <!-- 扫描annotation类，过滤Service，Repository -->
-    <context:component-scan base-package="com.neko">
-        <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
-        <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
-    </context:component-scan>
+    <!--&lt;!&ndash; 扫描annotation类，过滤Service，Repository &ndash;&gt;-->
+    <!--<context:component-scan base-package="com.neko">-->
+        <!--<context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>-->
+        <!--<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>-->
+    <!--</context:component-scan>-->
 
-    <!-- 加载数据库属性配置文件 -->
+    <!--&lt;!&ndash; 加载数据库属性配置文件 &ndash;&gt;-->
     <context:property-placeholder location="classpath:datasource/jdbc.properties,classpath:redis/redis.properties"/>
 
-    <!-- 配置数据库连接池（c3p0） -->
-    <!--<bean id="parentDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">-->
-    <!-- 配置主数据源(写库) -->
-    <bean id="writeDataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
-        <property name="url" value="${neko.write.url}"/>
-        <property name="username" value="${neko.write.username}"/>
-        <property name="password" value="${neko.write.password}"/>
-        <property name="driverClassName" value="${write.driverClassName}"/>
-        <property name="filters" value="${write.filters}"/>
-        <property name="defaultAutoCommit" value="${write.defaultAutoCommit}"/>
-        <property name="maxActive" value="${write.maxActive}"/>
-        <property name="initialSize" value="${write.initialSize}"/>
-        <property name="maxWait" value="${write.maxWait}"/>
-        <property name="minIdle" value="${write.minIdle}"/>
-        <property name="timeBetweenEvictionRunsMillis" value="${write.timeBetweenEvictionRunsMillis}"/>
-        <property name="minEvictableIdleTimeMillis" value="${write.minEvictableIdleTimeMillis}"/>
-        <property name="validationQuery" value="${write.validationQuery}"/>
-        <property name="testWhileIdle" value="${write.testWhileIdle}"/>
-        <property name="testOnBorrow" value="${write.testOnBorrow}"/>
-        <property name="testOnReturn" value="${write.testOnReturn}"/>
-        <!--
-        <property name="maxOpenPreparedStatements" value="${write.maxOpenPreparedStatements}" />
-        -->
-        <property name="removeAbandoned" value="${write.removeAbandoned}"/> <!-- 打开removeAbandoned功能 -->
-        <property name="removeAbandonedTimeout" value="${write.removeAbandonedTimeout}"/> <!-- 1800秒，也就是30分钟 -->
-        <property name="logAbandoned" value="${write.logAbandoned}"/> <!-- 关闭abanded连接时输出错误日志 -->
-    </bean>
-    <!-- 配置从数据源(读库) -->
-    <bean id="readDataSource1" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
-        <property name="url" value="${neko.read.url}"/>
-        <property name="username" value="${neko.read.username}"/>
-        <property name="password" value="${neko.read.password}"/>
-        <property name="driverClassName" value="${read.driverClassName}"/>
-        <property name="filters" value="${read.filters}"/>
-        <property name="defaultAutoCommit" value="${read.defaultAutoCommit}"/>
-        <property name="maxActive" value="${read.maxActive}"/>
-        <property name="initialSize" value="${read.initialSize}"/>
-        <property name="maxWait" value="${read.maxWait}"/>
-        <property name="minIdle" value="${read.minIdle}"/>
-        <property name="timeBetweenEvictionRunsMillis" value="${read.timeBetweenEvictionRunsMillis}"/>
-        <property name="minEvictableIdleTimeMillis" value="${read.minEvictableIdleTimeMillis}"/>
-        <property name="validationQuery" value="${read.validationQuery}"/>
-        <property name="testWhileIdle" value="${read.testWhileIdle}"/>
-        <property name="testOnBorrow" value="${read.testOnBorrow}"/>
-        <property name="testOnReturn" value="${read.testOnReturn}"/>
-        <!--
-        <property name="maxOpenPreparedStatements" value="${read.maxOpenPreparedStatements}" />
-        -->
-        <property name="removeAbandoned" value="${read.removeAbandoned}"/> <!-- 打开removeAbandoned功能 -->
-        <property name="removeAbandonedTimeout" value="${read.removeAbandonedTimeout}"/> <!-- 1800秒，也就是30分钟 -->
-        <property name="logAbandoned" value="${read.logAbandoned}"/> <!-- 关闭abanded连接时输出错误日志 -->
-    </bean>
+    <!--&lt;!&ndash; 配置数据库连接池（c3p0） &ndash;&gt;-->
+    <!--&lt;!&ndash;<bean id="parentDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">&ndash;&gt;-->
+    <!--&lt;!&ndash; 配置主数据源(写库) &ndash;&gt;-->
+    <!--<bean id="writeDataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">-->
+        <!--<property name="url" value="${neko.write.url}"/>-->
+        <!--<property name="username" value="${neko.write.username}"/>-->
+        <!--<property name="password" value="${neko.write.password}"/>-->
+        <!--<property name="driverClassName" value="${write.driverClassName}"/>-->
+        <!--<property name="filters" value="${write.filters}"/>-->
+        <!--<property name="defaultAutoCommit" value="${write.defaultAutoCommit}"/>-->
+        <!--<property name="maxActive" value="${write.maxActive}"/>-->
+        <!--<property name="initialSize" value="${write.initialSize}"/>-->
+        <!--<property name="maxWait" value="${write.maxWait}"/>-->
+        <!--<property name="minIdle" value="${write.minIdle}"/>-->
+        <!--<property name="timeBetweenEvictionRunsMillis" value="${write.timeBetweenEvictionRunsMillis}"/>-->
+        <!--<property name="minEvictableIdleTimeMillis" value="${write.minEvictableIdleTimeMillis}"/>-->
+        <!--<property name="validationQuery" value="${write.validationQuery}"/>-->
+        <!--<property name="testWhileIdle" value="${write.testWhileIdle}"/>-->
+        <!--<property name="testOnBorrow" value="${write.testOnBorrow}"/>-->
+        <!--<property name="testOnReturn" value="${write.testOnReturn}"/>-->
+        <!--&lt;!&ndash;-->
+        <!--<property name="maxOpenPreparedStatements" value="${write.maxOpenPreparedStatements}" />-->
+        <!--&ndash;&gt;-->
+        <!--<property name="removeAbandoned" value="${write.removeAbandoned}"/> &lt;!&ndash; 打开removeAbandoned功能 &ndash;&gt;-->
+        <!--<property name="removeAbandonedTimeout" value="${write.removeAbandonedTimeout}"/> &lt;!&ndash; 1800秒，也就是30分钟 &ndash;&gt;-->
+        <!--<property name="logAbandoned" value="${write.logAbandoned}"/> &lt;!&ndash; 关闭abanded连接时输出错误日志 &ndash;&gt;-->
+    <!--</bean>-->
+    <!--&lt;!&ndash; 配置从数据源(读库) &ndash;&gt;-->
+    <!--<bean id="readDataSource1" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">-->
+        <!--<property name="url" value="${neko.read.url}"/>-->
+        <!--<property name="username" value="${neko.read.username}"/>-->
+        <!--<property name="password" value="${neko.read.password}"/>-->
+        <!--<property name="driverClassName" value="${read.driverClassName}"/>-->
+        <!--<property name="filters" value="${read.filters}"/>-->
+        <!--<property name="defaultAutoCommit" value="${read.defaultAutoCommit}"/>-->
+        <!--<property name="maxActive" value="${read.maxActive}"/>-->
+        <!--<property name="initialSize" value="${read.initialSize}"/>-->
+        <!--<property name="maxWait" value="${read.maxWait}"/>-->
+        <!--<property name="minIdle" value="${read.minIdle}"/>-->
+        <!--<property name="timeBetweenEvictionRunsMillis" value="${read.timeBetweenEvictionRunsMillis}"/>-->
+        <!--<property name="minEvictableIdleTimeMillis" value="${read.minEvictableIdleTimeMillis}"/>-->
+        <!--<property name="validationQuery" value="${read.validationQuery}"/>-->
+        <!--<property name="testWhileIdle" value="${read.testWhileIdle}"/>-->
+        <!--<property name="testOnBorrow" value="${read.testOnBorrow}"/>-->
+        <!--<property name="testOnReturn" value="${read.testOnReturn}"/>-->
+        <!--&lt;!&ndash;-->
+        <!--<property name="maxOpenPreparedStatements" value="${read.maxOpenPreparedStatements}" />-->
+        <!--&ndash;&gt;-->
+        <!--<property name="removeAbandoned" value="${read.removeAbandoned}"/> &lt;!&ndash; 打开removeAbandoned功能 &ndash;&gt;-->
+        <!--<property name="removeAbandonedTimeout" value="${read.removeAbandonedTimeout}"/> &lt;!&ndash; 1800秒，也就是30分钟 &ndash;&gt;-->
+        <!--<property name="logAbandoned" value="${read.logAbandoned}"/> &lt;!&ndash; 关闭abanded连接时输出错误日志 &ndash;&gt;-->
+    <!--</bean>-->
 
-    <bean id="readWriteDataSource" class="com.neko.dao.common.datasource.ReadWriteDataSource">
-        <property name="writeDataSource" ref="writeDataSource"/>
-        <property name="readDataSourceMap">
-            <map>
-                <entry key="readDataSource1" value-ref="readDataSource1"/>
-                <entry key="readDataSource2" value-ref="readDataSource1"/>
-                <entry key="readDataSource3" value-ref="readDataSource1"/>
-                <entry key="readDataSource4" value-ref="readDataSource1"/>
-            </map>
-        </property>
-    </bean>
-    <!-- MapperScanner配置.自动去搜索mapper里的对象,并注入.  -->
-    <!-- 注意,没有必要去指定SqlSessionFactory或SqlSessionTemplate,
-    因为MapperScannerConfigurer将会创建 MapperFactoryBean，之后自动装配。
-    但是，如果你使 用了一个以上的DataSource，那 么自动装配可能会失效。
-    这种情况下,你可以使用 sqlSessionFactoryBeanName或sqlSessionTemplateBeanName
-    属性来设置正确的 bean名称来使用。 -->
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.neko.dao.mapper,com.neko.dao.mapping"/>
-        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
-    </bean>
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="readWriteDataSource"/>
-        <property name="configLocation" value="classpath:datasource/sqlMapConfig.xml"/>
-        <property name="mapperLocations" value="classpath*:com/neko/dao/mapping/*.xml"/>
-    </bean>
+    <!--<bean id="readWriteDataSource" class="com.neko.dao.common.datasource.ReadWriteDataSource">-->
+        <!--<property name="writeDataSource" ref="writeDataSource"/>-->
+        <!--<property name="readDataSourceMap">-->
+            <!--<map>-->
+                <!--<entry key="readDataSource1" value-ref="readDataSource1"/>-->
+                <!--<entry key="readDataSource2" value-ref="readDataSource1"/>-->
+                <!--<entry key="readDataSource3" value-ref="readDataSource1"/>-->
+                <!--<entry key="readDataSource4" value-ref="readDataSource1"/>-->
+            <!--</map>-->
+        <!--</property>-->
+    <!--</bean>-->
+    <!--&lt;!&ndash; MapperScanner配置.自动去搜索mapper里的对象,并注入.  &ndash;&gt;-->
+    <!--&lt;!&ndash; 注意,没有必要去指定SqlSessionFactory或SqlSessionTemplate,-->
+    <!--因为MapperScannerConfigurer将会创建 MapperFactoryBean，之后自动装配。-->
+    <!--但是，如果你使 用了一个以上的DataSource，那 么自动装配可能会失效。-->
+    <!--这种情况下,你可以使用 sqlSessionFactoryBeanName或sqlSessionTemplateBeanName-->
+    <!--属性来设置正确的 bean名称来使用。 &ndash;&gt;-->
+    <!--<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">-->
+        <!--<property name="basePackage" value="com.neko.dao.mapper,com.neko.dao.mapping"/>-->
+        <!--<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>-->
+    <!--</bean>-->
+    <!--<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">-->
+        <!--<property name="dataSource" ref="readWriteDataSource"/>-->
+        <!--<property name="configLocation" value="classpath:datasource/sqlMapConfig.xml"/>-->
+        <!--<property name="mapperLocations" value="classpath*:com/neko/dao/mapping/*.xml"/>-->
+    <!--</bean>-->
 
 
-    <!-- 配置读写分离 -->
-    <bean id="readWriteDataSourceTransactionProcessor"
-          class="com.neko.dao.common.datasource.ReadWriteDataSourceProcessor">
-        <property name="forceChoiceReadWhenWrite" value="true"/>
-    </bean>
+    <!--&lt;!&ndash; 配置读写分离 &ndash;&gt;-->
+    <!--<bean id="readWriteDataSourceTransactionProcessor"-->
+          <!--class="com.neko.dao.common.datasource.ReadWriteDataSourceProcessor">-->
+        <!--<property name="forceChoiceReadWhenWrite" value="true"/>-->
+    <!--</bean>-->
 
-    <!-- 配置事务分离切面 -->
-    <aop:config expose-proxy="true">
-        <!-- 只对业务逻辑层实施事务  * com.ssjk.service.*.*(..)-->
-        <aop:pointcut id="txPointcut" expression="execution(* com.neko.service.*.*(..))"/>
-        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
-        <aop:aspect order="-2147483648" ref="readWriteDataSourceTransactionProcessor">
-            <aop:around pointcut-ref="txPointcut" method="determineReadOrWriteDB"/>
-        </aop:aspect>
-    </aop:config>
+    <!--&lt;!&ndash; 配置事务分离切面 &ndash;&gt;-->
+    <!--<aop:config expose-proxy="true">-->
+        <!--&lt;!&ndash; 只对业务逻辑层实施事务  * com.ssjk.service.*.*(..)&ndash;&gt;-->
+        <!--<aop:pointcut id="txPointcut" expression="execution(* com.neko.service.*.*(..))"/>-->
+        <!--<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>-->
+        <!--<aop:aspect order="-2147483648" ref="readWriteDataSourceTransactionProcessor">-->
+            <!--<aop:around pointcut-ref="txPointcut" method="determineReadOrWriteDB"/>-->
+        <!--</aop:aspect>-->
+    <!--</aop:config>-->
 
-    <!-- 使用annotation定义事务 （使用注解定义事务） -->
-    <!-- 使用JDBC事物 -->
-    <bean id="transactionManager"
-          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="readWriteDataSource"/>
-    </bean>
+    <!--&lt;!&ndash; 使用annotation定义事务 （使用注解定义事务） &ndash;&gt;-->
+    <!--&lt;!&ndash; 使用JDBC事物 &ndash;&gt;-->
+    <!--<bean id="transactionManager"-->
+          <!--class="org.springframework.jdbc.datasource.DataSourceTransactionManager">-->
+        <!--<property name="dataSource" ref="readWriteDataSource"/>-->
+    <!--</bean>-->
 
-    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <!--<tx:annotation-driven transaction-manager="transactionManager"/>-->
 
-    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="readWriteDataSource"/>
-    </bean>
+    <!--<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">-->
+        <!--<property name="dataSource" ref="readWriteDataSource"/>-->
+    <!--</bean>-->
 
-    <tx:advice id="txAdvice" transaction-manager="txManager">
-        <tx:attributes>
-            <tx:method name="save*" propagation="REQUIRED"/>
-            <tx:method name="add*" propagation="REQUIRED"/>
-            <tx:method name="create*" propagation="REQUIRED"/>
-            <tx:method name="insert*" propagation="REQUIRED"/>
-            <tx:method name="update*" propagation="REQUIRED"/>
-            <tx:method name="merge*" propagation="REQUIRED"/>
-            <tx:method name="delete*" propagation="REQUIRED"/>
-            <tx:method name="remove*" propagation="REQUIRED"/>
-            <tx:method name="get*" read-only="true"/>
-            <tx:method name="put*" read-only="true"/>
-            <tx:method name="query*" read-only="true"/>
-            <tx:method name="use*" read-only="true"/>
-            <tx:method name="get*" read-only="true"/>
-            <tx:method name="count*" read-only="true"/>
-            <tx:method name="find*" read-only="true"/>
-            <tx:method name="list*" read-only="true"/>
-            <tx:method name="*" propagation="REQUIRED"/>
-        </tx:attributes>
-    </tx:advice>
+    <!--<tx:advice id="txAdvice" transaction-manager="txManager">-->
+        <!--<tx:attributes>-->
+            <!--<tx:method name="save*" propagation="REQUIRED"/>-->
+            <!--<tx:method name="add*" propagation="REQUIRED"/>-->
+            <!--<tx:method name="create*" propagation="REQUIRED"/>-->
+            <!--<tx:method name="insert*" propagation="REQUIRED"/>-->
+            <!--<tx:method name="update*" propagation="REQUIRED"/>-->
+            <!--<tx:method name="merge*" propagation="REQUIRED"/>-->
+            <!--<tx:method name="delete*" propagation="REQUIRED"/>-->
+            <!--<tx:method name="remove*" propagation="REQUIRED"/>-->
+            <!--<tx:method name="get*" read-only="true"/>-->
+            <!--<tx:method name="put*" read-only="true"/>-->
+            <!--<tx:method name="query*" read-only="true"/>-->
+            <!--<tx:method name="use*" read-only="true"/>-->
+            <!--<tx:method name="get*" read-only="true"/>-->
+            <!--<tx:method name="count*" read-only="true"/>-->
+            <!--<tx:method name="find*" read-only="true"/>-->
+            <!--<tx:method name="list*" read-only="true"/>-->
+            <!--<tx:method name="*" propagation="REQUIRED"/>-->
+        <!--</tx:attributes>-->
+    <!--</tx:advice>-->
     <!--&lt;!&ndash; 该 BeanPostProcessor 将自动起作用，对标注 @Autowired 的 Bean 进行自动注入 &ndash;&gt;-->
     <!--<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>-->
     <!--<bean id="propertyConfigurer" class="com.ssjk.website.util.PropertyPlaceholder">-->

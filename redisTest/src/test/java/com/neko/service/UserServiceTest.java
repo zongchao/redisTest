@@ -1,11 +1,10 @@
 package com.neko.service;
 
-import com.neko.dao.po.User;
 import com.neko.queue.MessageQueueSender;
-import com.neko.service.user.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -15,9 +14,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:/spring/applicationContext.xml", "classpath:/spring/spring-*.xml"})
 public class UserServiceTest {
+//
+//    @Autowired
+//    UserService userService;
 
     @Autowired
-    UserService userService;
+    RedisTemplate redisTemplate;
 
     @Autowired
     MessageQueueSender messageQueueSender;
@@ -27,12 +29,14 @@ public class UserServiceTest {
 //        user.setUsername("test2");
 //        user.setPassword("1111");
 //        userService.insertUser(user);
-        User user = userService.findUserById(1);
+//        User user = userService.findUserById(1);
 //        System.out.println(user.getUsername());
     }
 
     @Test
     public void queueTest() {
+
+
         messageQueueSender.sendMessage("java", "1233");
     }
 

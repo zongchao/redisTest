@@ -15,9 +15,11 @@ public class MessageQueueListener implements MessageListener {
         this.redisTemplate = redisTemplate;
     }
 
-
     @Override
     public void onMessage(Message message, byte[] bytes) {
-        System.out.println(123);
+
+        System.out.println(new String(message.getBody()));
     }
+
+
 }
