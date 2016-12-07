@@ -12,6 +12,7 @@
     <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
         <property name="maxTotal" value="${redis.pool.maxActive}"/>
         <property name="maxIdle" value="${redis.pool.maxIdle}"/>
+        <property name="maxWaitMillis" value="${redis.pool.maxWait}"/>
         <property name="testOnBorrow" value="${redis.pool.testOnBorrow}"/>
     </bean>
     <!-- Jedis ConnectionFactory 数据库连接配置-->
@@ -60,8 +61,8 @@
     redis:listener 其中ref是订阅者使用的类，serializer序列化形式，method订阅到执行的方法，topic订阅的频道
     注意如果不配置task-executor会重复订阅
      -->
-    <bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler"/>
-    <redis:listener-container connection-factory="redisConnectionFactory" task-executor="taskExecutor">
+    <bean id="taskExecutor" class="org.springframework.core.task.SimpleAsyncTaskExecutor"/>
+    <redis:listener-container connection-factory="redisConnectionFactory">
         <redis:listener ref="messageQueueListener" serializer="jdkSerializer" method="onMessage" topic="java"/>
     </redis:listener-container>
     <!-- 发布订阅消息 -->
